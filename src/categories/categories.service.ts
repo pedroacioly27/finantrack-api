@@ -59,6 +59,6 @@ export class CategoriesService {
 
     await this.categoryRepository.delete({ id });
 
-    return { message: 'Category deleted' };
+    return { message: 'Category successfully deleted' };
   }
 }
