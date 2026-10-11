@@ -1,5 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TransactionsController } from './transactions.controller';
+import { TransactionsService } from './transactions.service';
+import { JwtService } from '@nestjs/jwt';
 
 describe('TransactionsController', () => {
   let controller: TransactionsController;
@@ -7,6 +9,16 @@ describe('TransactionsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TransactionsController],
+      providers: [
+        {
+          provide: JwtService,
+          useValue: {
+            verifyAsync: jest.fn(),
+            signAsync: jest.fn(),
+          },
+        },
+        { provide: TransactionsService, useValue: {} },
+      ],
     }).compile();
 
     controller = module.get<TransactionsController>(TransactionsController);
