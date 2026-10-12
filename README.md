@@ -1,98 +1,188 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# FinanTrack API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST para gerenciamento de finanças pessoais, desenvolvida com **NestJS, TypeScript e PostgreSQL**.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+O FinanTrack permite que usuários autenticados organizem suas transações financeiras, gerenciem categorias e consultem resumos de receitas, despesas e saldo em períodos específicos.
 
-## Description
+## Funcionalidades
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Cadastro de usuários.
+- Autenticação com JWT.
+- Criptografia de senhas com bcrypt.
+- Gerenciamento de categorias financeiras.
+- Cadastro, consulta, atualização e exclusão de transações.
+- Associação de transações e categorias ao usuário autenticado.
+- Isolamento dos dados financeiros entre usuários.
+- Resumo financeiro com total de receitas, despesas e saldo.
+- Filtros por data no resumo financeiro.
+- Validação de dados de entrada.
+- Tratamento de erros com exceções HTTP.
+- Testes automatizados com Jest.
 
-## Project setup
+## Tecnologias utilizadas
 
-```bash
-$ npm install
+- **Node.js** — ambiente de execução JavaScript.
+- **NestJS** — framework para construção da API.
+- **TypeScript** — tipagem estática e organização do código.
+- **PostgreSQL** — banco de dados relacional.
+- **TypeORM** — mapeamento objeto-relacional e gerenciamento de consultas.
+- **JWT** — autenticação por tokens.
+- **bcrypt** — hash de senhas.
+- **class-validator** — validação de dados.
+- **class-transformer** — transformação de dados.
+- **Jest** — testes automatizados.
+
+## Estrutura do projeto
+
+```text
+src/
+├── auth/
+├── categories/
+├── database/
+├── transactions/
+├── types/
+├── users/
+├── app.controller.ts
+├── app.module.ts
+├── app.service.ts
+└── main.ts
 ```
 
-## Compile and run the project
+### Organização dos módulos
+
+- **auth:** autenticação e proteção de rotas.
+- **users:** cadastro e gerenciamento de usuários.
+- **categories:** gerenciamento de categorias financeiras.
+- **transactions:** gerenciamento de transações e resumos financeiros.
+- **database:** configuração e migrações do banco de dados.
+- **types:** definições de tipos utilizados pela aplicação.
+
+## Pré-requisitos
+
+Antes de executar o projeto, você precisa ter instalado:
+
+- Node.js
+- npm
+- PostgreSQL
+- Git
+
+## Como executar o projeto
+
+### 1. Clonar o repositório
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/pedroacioly27/finantrack-api.git
+cd finantrack-api
 ```
 
-## Run tests
+### 2. Instalar as dependências
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
+### 3. Configurar as variáveis de ambiente
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Crie um arquivo `.env` na raiz do projeto:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+```env
+PORT=
+NODE_ENV=
+JWT_SECRET=
+
+DB_HOST=
+DB_PORT=
+DB_USERNAME=
+DB_PASSWORD=
+DB_NAME=
+```
+
+Preencha as variáveis de acordo com seu ambiente local.
+
+### 4. Configurar o banco de dados
+
+Crie um banco de dados PostgreSQL e configure as variáveis de conexão no arquivo `.env`.
+
+Certifique-se de que os nomes das variáveis correspondem aos utilizados na configuração do TypeORM.
+
+### 5. Executar as migrações
+
+Com o banco de dados configurado, execute:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run migration:run
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Para desfazer a última migração aplicada, utilize:
 
-## Resources
+```bash
+npm run migration:revert
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+### 6. Iniciar a aplicação
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Para executar em modo de desenvolvimento:
 
-## Support
+```bash
+npm run start:dev
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Para compilar o projeto:
 
-## Stay in touch
+```bash
+npm run build
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Para executar a versão compilada:
 
-## License
+```bash
+npm run start:prod
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## Testes automatizados
+
+O projeto utiliza Jest para testar os serviços, controllers e outras partes da aplicação.
+
+Executar todos os testes:
+
+```bash
+npm test
+```
+
+Executar os testes em modo de observação:
+
+```bash
+npm run test:watch
+```
+
+Gerar relatório de cobertura:
+
+```bash
+npm run test:cov
+```
+
+## Principais recursos da API
+
+| Recurso | Descrição |
+|---|---|
+| Autenticação | Cadastro e autenticação de usuários |
+| Usuários | Gerenciamento de contas |
+| Categorias | Criação, consulta, atualização e exclusão de categorias |
+| Transações | Criação, consulta, atualização e exclusão de transações |
+| Resumo financeiro | Cálculo de receitas, despesas e saldo |
+| Filtros por data | Consulta de resumos em períodos específicos |
+
+As rotas protegidas exigem um token JWT válido. As operações financeiras são associadas ao usuário autenticado para impedir o acesso indevido aos dados de outras contas.
+
+## Objetivo do projeto
+
+O FinanTrack é um projeto de portfólio voltado ao desenvolvimento backend, com foco em construção de APIs REST, autenticação, regras de negócio, persistência de dados relacionais e testes automatizados.
+
+O projeto também serve como oportunidade de aprofundamento em boas práticas de organização de código e desenvolvimento com NestJS.
+
+## Autor
+
+**Pedro Acioly**
+
+- GitHub: [pedroacioly27](https://github.com/pedroacioly27)
+- Repositório: [finantrack-api](https://github.com/pedroacioly27/finantrack-api)
