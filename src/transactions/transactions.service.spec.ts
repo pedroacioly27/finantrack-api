@@ -320,6 +320,7 @@ describe('TransactionsService', () => {
 
     expect(transactionRepository.delete).toHaveBeenCalledWith({
       id: 1,
+      user: { id: 1 },
     });
     expect(result).toEqual({ message: 'Transaction successfully deleted' });
   });

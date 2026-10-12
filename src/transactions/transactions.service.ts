@@ -110,7 +110,7 @@ export class TransactionsService {
   async delete(id: number, userId: number) {
     await this.findOne(id, userId);
 
-    await this.transactionRepository.delete({ id });
+    await this.transactionRepository.delete({ id, user: { id: userId } });
 
     return { message: 'Transaction successfully deleted' };
   }
